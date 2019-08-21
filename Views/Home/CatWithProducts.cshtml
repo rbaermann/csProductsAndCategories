@@ -1,0 +1,47 @@
+@using productsAndCategories.Models
+@model CategoryWithProducts
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <a href="/categories">Back</a>
+        <h1>@Model.CurrentCategory.Name</h1>
+        <div>
+            <h3>Products:</h3>
+            @{
+                foreach(Association ass in Model.CurrentCategory.ProductAssociation)
+                {
+                    <p>@ass.Product.Name</p>
+                }
+            }
+        </div>
+        
+        <div>
+            <h3>Add Product:</h3>
+
+            <form asp-action="EditCategory" asp-route-CategoryId=@Model.CurrentCategory.CategoryId asp-controller="Home" method="POST">
+
+                <span asp-validation-for="Association.ProductId"></span>
+                <label asp-for="Association.ProductId"></label>
+                <select asp-for="Association.ProductId">
+                    @{
+                        foreach(Product product in Model.ListOfProducts)
+                        {
+                            <option value="@product.ProductId">@product.Name</option>
+                        }
+                    }
+                </select>
+
+                <input type="submit" value="Add Product">
+
+            </form>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+@using productsAndCategories.Models
+@model CategoriesAndListCategories
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1><a href="/">Products</a> | Categories</h1>
+        <div>
+            <h3>New Category</h3>
+
+            <form asp-action="CreateCategory" asp-controller="Home" method="POST">
+
+                <span asp-validation-for="NewCategory.Name"></span>
+                <label asp-for="NewCategory.Name">Name</label>
+                <input asp-for="NewCategory.Name">
+
+                <input type="submit" value="Add Category">
+
+            </form>
+        </div>
+
+        <div>
+            <h3>Existing Categories</h3>
+            @{
+                foreach(Category cat in Model.ListOfCategories)
+                {
+                    <a href="category/@cat.CategoryId">@cat.Name</a>
+                }
+            }
+        </div>
+    </body>
+</html>
